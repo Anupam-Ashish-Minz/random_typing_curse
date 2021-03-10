@@ -12,6 +12,8 @@ int main() {
 
     int correct = 0;
     int input_size = 15;
+    double t_total_keystroke = 0;
+    double t_avg_keystroke = 0;
 
     initscr();
     cbreak();
@@ -23,7 +25,11 @@ int main() {
         char rand_char = letters[rand()%26];
         printw("%c\n", rand_char);
 
+        char t_before = time(&t);
         char c = getch();
+        char t_after = time(&t);
+
+        t_total_keystroke += t_after - t_before;
 
         if (rand_char == c) {
             correct++;
@@ -32,7 +38,10 @@ int main() {
         clear();
     }
 
-    printw("accuracy = %f", (double)correct/input_size*100);
+    t_avg_keystroke = t_total_keystroke / input_size;
+
+    printw("accuracy = %f\n", (double)correct/input_size*100);
+    printw("avg keystoke time = %f\n", t_avg_keystroke);
 
     getch();
     endwin();
