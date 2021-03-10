@@ -10,18 +10,29 @@ int main() {
     time_t t;
     srand((unsigned)time(&t));
 
+    int correct = 0;
+    int input_size = 15;
+
     initscr();
     cbreak();
     noecho();
-    printw("Hello World\n");
     refresh();
     
-    for (int i=0; i<5; i++) {
+    for (int i=0; i<input_size; i++) {
+
         char rand_char = letters[rand()%26];
         printw("%c\n", rand_char);
+
         char c = getch();
-        refresh();
+
+        if (rand_char == c) {
+            correct++;
+        }
+
+        clear();
     }
+
+    printw("accuracy = %f", (double)correct/input_size*100);
 
     getch();
     endwin();
