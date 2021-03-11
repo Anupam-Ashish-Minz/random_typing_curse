@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <ncurses.h>
 #include <time.h>
+#include <unistd.h>
 
 int main() {
 
@@ -12,6 +13,7 @@ int main() {
 
     int correct = 0;
     int input_size = 15;
+    int inverse_count = input_size;
     double t_total_keystroke = 0;
     double t_avg_keystroke = 0;
 
@@ -19,9 +21,17 @@ int main() {
     cbreak();
     noecho();
     refresh();
-    
+
+    for (int i=3; i>0; i--) {
+        printw("please wait ... %d\n", i);
+        // should be printed before the thread suspeds but that's not working
+        sleep(1);
+    }
+    clear();
+
     for (int i=0; i<input_size; i++) {
 
+        printw("%d left\n", inverse_count--);
         char rand_char = letters[rand()%26];
         printw("%c\n", rand_char);
 
