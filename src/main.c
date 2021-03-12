@@ -3,8 +3,16 @@
 #include <ncurses.h>
 #include <time.h>
 #include <unistd.h>
+#include "cli.c"
 
-int main() {
+int main(int argc, char *argv[]) {
+
+    struct arguments arguments;
+
+    arguments.mode = CHARACTER_COUNT;
+    arguments.isCaseInsensitive = false;
+
+    argp_parse(&argp, argc, argv, 0, 0, &arguments);
 
     char letters[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 
