@@ -6,12 +6,12 @@ const char *argp_program_bug_address = "<your@email.address>";
 static char doc[] = "A typing application that spews random characters";
 static char args_doc[] = "[OPTIONS]...";
 static struct argp_option options[] = { 
-    { "character-count", 'c', 0, 0, "The Total number of charaters to test"}
+    { "character-count", 'c', 0, 0, "The Total number of charaters to test"},
+    { 0 }
 };
 
 struct arguments {
     enum { CHARACTER_COUNT } mode;
-    bool isCaseInsensitive;
 };
 
 static error_t parse_opt(int key, char *arg, struct argp_state *state) {
