@@ -24,7 +24,6 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state) {
         case ARGP_KEY_ARG:
             return 0;
         default:
-            arguments->char_count = 0;
             return ARGP_ERR_UNKNOWN;
     }   
     return 0;
