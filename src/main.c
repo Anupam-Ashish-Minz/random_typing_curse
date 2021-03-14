@@ -8,10 +8,13 @@ int main(int argc, char *argv[]) {
     struct arguments arguments;
     argp_parse(&argp, argc, argv, 0, 0, &arguments);
 
-    // incorrect output due to incorrect conversion from ascii to int
     printf("%d\n", arguments.char_count);
 
-    run_app(15);
+    if (arguments.char_count != 0) {
+        run_app(arguments.char_count);
+    } else {
+        run_app(10);
+    }
 
     return 0;
 }

@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <argp.h>
 #include <stdbool.h>
 
@@ -18,11 +19,12 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state) {
     struct arguments *arguments = state->input;
     switch (key) {
         case 'c':
-            arguments->char_count = (int)arg[0];
+            arguments->char_count = atoi(arg);
             break;
         case ARGP_KEY_ARG:
             return 0;
         default:
+            arguments->char_count = 0;
             return ARGP_ERR_UNKNOWN;
     }   
     return 0;
