@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <argp.h>
 #include "app.c"
-#include "cli.c"
+#include "cli.h"
 
 int main(int argc, char *argv[]) {
 
