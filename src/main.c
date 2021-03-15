@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <argp.h>
-#include "app.c"
+#include "app.h"
 #include "cli.h"
 
 int main(int argc, char *argv[]) {
