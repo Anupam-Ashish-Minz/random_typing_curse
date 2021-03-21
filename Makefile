@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=
+CFLAGS=-g
 CLIBS=-lncurses
 TARGET=./target
 SRC=./src

@@ -12,8 +12,8 @@ void run_app(int input_size) {
 
     int correct = 0;
     int inverse_count = input_size;
-    double t_total_keystroke = 0;
-    double t_avg_keystroke = 0;
+    unsigned long t_total_keystroke = 0;
+    double t_avg_keystroke = 0.0;
 
     initscr();
     cbreak();
@@ -33,9 +33,9 @@ void run_app(int input_size) {
         char rand_char = letters[rand()%26];
         printw("%c\n", rand_char);
 
-        char t_before = time(&t);
+        unsigned long t_before = (unsigned long)time(NULL);
         char c = getch();
-        char t_after = time(&t);
+        unsigned long t_after = (unsigned long)time(NULL);
 
         t_total_keystroke += t_after - t_before;
 
@@ -43,10 +43,10 @@ void run_app(int input_size) {
             correct++;
         }
 
-        clear();
+        //clear();
     }
 
-    t_avg_keystroke = t_total_keystroke / input_size;
+    t_avg_keystroke = (double)t_total_keystroke / input_size;
 
     printw("accuracy = %f\n", (double)correct/input_size*100);
     printw("avg keystoke time = %f\n", t_avg_keystroke);
