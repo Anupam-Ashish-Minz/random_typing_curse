@@ -2,6 +2,7 @@
 #include <ncurses.h>
 #include <time.h>
 #include <unistd.h>
+#include <sys/time.h>
 
 void run_app(int input_size) {
     
@@ -10,21 +11,18 @@ void run_app(int input_size) {
     time_t t;
     srand((unsigned)time(&t));
 
+    struct timeval before,after;
+
     int correct = 0;
     int inverse_count = input_size;
-    unsigned long t_total_keystroke = 0;
-    double t_avg_keystroke = 0.0;
+    unsigned long t_total = 0;
+    unsigned int t_avg = 0;
 
     initscr();
     cbreak();
     noecho();
     refresh();
 
-    for (int i=3; i>0; i--) {
-        printw("please wait ... %d\n", i);
-        // should be printed before the thread suspeds but that's not working
-        sleep(1);
-    }
     clear();
 
     for (int i=0; i<input_size; i++) {
@@ -33,23 +31,24 @@ void run_app(int input_size) {
         char rand_char = letters[rand()%26];
         printw("%c\n", rand_char);
 
-        unsigned long t_before = (unsigned long)time(NULL);
+        gettimeofday(&before, NULL);
         char c = getch();
-        unsigned long t_after = (unsigned long)time(NULL);
+        gettimeofday(&after, NULL);
 
-        t_total_keystroke += t_after - t_before;
+        t_total += (after.tv_sec - before.tv_sec) * 1000000
+                    + (after.tv_usec - before.tv_usec);
 
         if (rand_char == c) {
             correct++;
         }
 
-        //clear();
+        clear();
     }
 
-    t_avg_keystroke = (double)t_total_keystroke / input_size;
+    t_avg = t_total / (input_size * 1000);
 
     printw("accuracy = %f\n", (double)correct/input_size*100);
-    printw("avg keystoke time = %f\n", t_avg_keystroke);
+    printw("avg keystoke time = %ums \n", t_avg);
 
     getch();
     endwin();
